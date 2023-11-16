@@ -1,5 +1,5 @@
 <template>
-  <h1>Events for you</h1>
+  <h1>Events For Good 😀</h1>
   <div class="events">
     <div class="home" v-for="event in events" :key="event.id">
       <EventCard :event="event" />
