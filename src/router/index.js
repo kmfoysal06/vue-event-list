@@ -5,6 +5,8 @@ import EventDetails from "../views/event/Details.vue";
 import EventRegister from "../views/event/Register.vue";
 import EventEdit from "../views/event/Edit.vue";
 import EventLayout from "../views/event/Layout.vue";
+import NotFound from "../views/NotFound.vue";
+import netError from "../views/NetworkError.vue";
 
 const routes = [
   {
@@ -19,11 +21,11 @@ const routes = [
     component: About,
   },
   {
-    path: "/event/:id",
+    path: "/events/:id",
     props: true,
     name: "event-layout",
     component: EventLayout,
-    children:[
+    children: [
       {
         path: "",
         name: "event-details",
@@ -39,8 +41,30 @@ const routes = [
         name: "event-edit",
         component: EventEdit,
       },
-    ]
+    ],
   },
+  {
+    path: "/event/:afterEvent(.*)",
+    redirect: (to) => {
+      return { path: "/events/" + to.params.afterEvent };
+    },
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "NotFound",
+    component: NotFound,
+  },
+  {
+    path: "/404/:res",
+    name: "404",
+    props: true,
+    component: NotFound,
+  },
+  {
+    path:'/network-error',
+    name:'netError',
+    component:netError
+  }
 ];
 
 const router = createRouter({

@@ -28,7 +28,7 @@
 // @ is an alias to /src
 import EventCard from "@/components/EventCard.vue";
 import Request from "@/services/EventService.js";
-import {watchEffect} from 'vue'
+import Nprogress from 'nprogress';
 
 export default {
   name: "HomeView",
@@ -42,18 +42,39 @@ export default {
       totalEvents:0
     };
   },
-  created() {
-    watchEffect(()=>{
-      this.events = null
-      Request.getEvents(2, this.page)
+  beforeRouteEnter(routeTo,routeFrom,next) {
+    Nprogress.start()
+      Request.getEvents(2, routeTo.query.page || 1)
+      .then((response) => {
+        next(comp=>{
+          comp.events = response.data;
+        comp.totalEvents = response.headers['x-total-count']
+        })
+      })
+      .catch(() => {
+        next({
+            name: "netError",
+          })
+      }).finally(()=>{
+        Nprogress.done()
+      })
+ 
+  },
+  beforeRouteUpdate(routeTo) {
+    Nprogress.start()
+      Request.getEvents(2, routeTo.query.page || 1)
       .then((response) => {
         this.events = response.data;
         this.totalEvents = response.headers['x-total-count']
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
+        return {
+            name: "netError",
+          } 
+      }).finally(()=>{
+        Nprogress.done()
       })
-    })
+ 
   },
   computed : {
     hasNextPage(){
