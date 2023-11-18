@@ -7,7 +7,9 @@ import EventEdit from "../views/event/Edit.vue";
 import EventLayout from "../views/event/Layout.vue";
 import NotFound from "../views/NotFound.vue";
 import netError from "../views/NetworkError.vue";
-import Nprogress from 'nprogress';
+import Nprogress from "nprogress";
+import Request from "@/services/EventService.js";
+import Gstore from '@/store'
 
 const routes = [
   {
@@ -26,6 +28,24 @@ const routes = [
     props: true,
     name: "event-layout",
     redirect: { name: "event-details" },
+    beforeEnter : to =>{
+      return Request.getEvent(to.params.id)
+      .then((response) => {
+        Gstore.event = response.data;
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 404) {
+          return {
+            name: "404",
+            params: { res: "event" },
+          };
+        } else {
+          return {
+            name: "netError",
+          };
+        }
+      });
+    },
     component: EventLayout,
     children: [
       {

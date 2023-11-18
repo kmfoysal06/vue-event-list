@@ -1,43 +1,20 @@
 <template>
-  <div v-if="event">
+  <div v-if="Gstore.event">
     <h3>
-      {{ event.title }}
+      {{ Gstore.event.title }}
     </h3>
     <div class="event-actions" v-if="event">
       <router-link :to="{ name: 'event-details' }">Details</router-link>
       <router-link :to="{ name: 'event-register' }">Register</router-link>
       <router-link :to="{ name: 'event-edit' }">Edit</router-link>
     </div>
-    <router-view :event="event" />
+    <router-view :event="Gstore.event" />
   </div>
 </template>
 <script>
-import Request from "@/services/EventService.js";
+import Gstore from '@/store'
 export default {
-  props: ["id"],
-  data() {
-    return {
-      event: null,
-    };
-  },
-  created() {
-    Request.getEvent(this.id)
-      .then((response) => {
-        this.event = response.data;
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 404) {
-          this.$router.push({
-            name: "404",
-            params: { res: "event" },
-          });
-        } else {
-          this.$router.push({
-            name: "netError",
-          });
-        }
-      });
-  },
+inject : ['Gstore']
 };
 </script>
 <style>

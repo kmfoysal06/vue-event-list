@@ -1,9 +1,9 @@
-import { createApp ,reactive } from 'vue'
+import { createApp  } from 'vue'
 import App from './App.vue'
 import router from './router'
 import 'nprogress/nprogress.css'
+import Gstore from './store'
 
 
-const Gstore = reactive({flashMessage:''})
 
 createApp(App).use(router).provide('Gstore',Gstore).mount('#app')
