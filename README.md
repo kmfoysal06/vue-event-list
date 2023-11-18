@@ -1,7 +1,6 @@
 ## welcome 
 wecome to real-time-vue-application
 this a sample vue project using vueJS in this project i tried to make the vue option API project more dynamic by using vue router,vue reactive and also nprogress library.
-you can clone it or use the live live given bellow to visit the output of this repository.
 ## real-time-vue-application
 ## Project setup
 ```
