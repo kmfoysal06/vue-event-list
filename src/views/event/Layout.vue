@@ -3,7 +3,7 @@
     <h3>
       {{ Gstore.event.title }}
     </h3>
-    <div class="event-actions" v-if="event">
+    <div class="event-actions" v-if="Gstore.event">
       <router-link :to="{ name: 'event-details' }">Details</router-link>
       <router-link :to="{ name: 'event-register' }">Register</router-link>
       <router-link :to="{ name: 'event-edit' }">Edit</router-link>
