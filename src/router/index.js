@@ -25,6 +25,7 @@ const routes = [
     path: "/event/:id",
     props: true,
     name: "event-layout",
+    redirect: { name: "event-details" },
     component: EventLayout,
     children: [
       {
