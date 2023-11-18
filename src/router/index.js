@@ -7,6 +7,7 @@ import EventEdit from "../views/event/Edit.vue";
 import EventLayout from "../views/event/Layout.vue";
 import NotFound from "../views/NotFound.vue";
 import netError from "../views/NetworkError.vue";
+import Nprogress from 'nprogress';
 
 const routes = [
   {
@@ -21,7 +22,7 @@ const routes = [
     component: About,
   },
   {
-    path: "/events/:id",
+    path: "/event/:id",
     props: true,
     name: "event-layout",
     component: EventLayout,
@@ -71,5 +72,11 @@ const router = createRouter({
   history: createWebHistory("/"),
   routes,
 });
+router.beforeEach(()=>{
+  Nprogress.start()
+})
+router.afterEach(()=>{
+  Nprogress.done()
+})
 
 export default router;

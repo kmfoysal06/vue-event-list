@@ -28,7 +28,6 @@
 // @ is an alias to /src
 import EventCard from "@/components/EventCard.vue";
 import Request from "@/services/EventService.js";
-import Nprogress from 'nprogress';
 
 export default {
   name: "HomeView",
@@ -43,7 +42,7 @@ export default {
     };
   },
   beforeRouteEnter(routeTo,routeFrom,next) {
-    Nprogress.start()
+
       Request.getEvents(2, routeTo.query.page || 1)
       .then((response) => {
         next(comp=>{
@@ -55,13 +54,11 @@ export default {
         next({
             name: "netError",
           })
-      }).finally(()=>{
-        Nprogress.done()
       })
  
   },
   beforeRouteUpdate(routeTo) {
-    Nprogress.start()
+
       Request.getEvents(2, routeTo.query.page || 1)
       .then((response) => {
         this.events = response.data;
@@ -71,8 +68,6 @@ export default {
         return {
             name: "netError",
           } 
-      }).finally(()=>{
-        Nprogress.done()
       })
  
   },
