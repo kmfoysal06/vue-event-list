@@ -59,7 +59,7 @@ export default {
   },
   beforeRouteUpdate(routeTo) {
 
-    Request.getEvents(2, routeTo.query.page || 1)
+      return Request.getEvents(2, routeTo.query.page || 1)
       .then((response) => {
         this.events = response.data;
         this.totalEvents = response.headers['x-total-count']
