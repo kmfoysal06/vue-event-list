@@ -16,10 +16,18 @@ export default{
 <style>
 #flashMessage{
   animation: fade 3s linear 1;
+  width:100px;
+  padding:10px;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 @keyframes fade{
   0%{
     background-color: #3c00ea;
+  }
+  98%{
+    transform: translateY(10px);
   }
   100%{
     background-color: transparent;
